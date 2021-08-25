@@ -1,0 +1,26 @@
+@startuml
+
+Node -> Farmer: new_signage_point
+Farmer -> Harvester: new_signage_point_harvester
+Harvester -> Harvester: Apply Plot Filter
+Harvester -> Harvester: Check Quality
+Harvester -> Harvester: Lookup Full Proof
+Harvester --> Farmer: new_proof_of_space
+Farmer -> Farmer: Quality Check
+Farmer -> Harvester: request_signatures
+Harvester --> Farmer: respond_signatures (sps)
+Farmer -> Farmer: Verify Proof Passes SP Filter
+Farmer -> Node: declare_proof_of_space
+Node -> Node: Validate sub slot of SP
+Node -> Node: Create Unfinished Block
+Node --> Farmer: request_signed_values
+Farmer -> Harvester: request_signatures
+Harvester --> Farmer: respond_signatures (block)
+Farmer -> Farmer: Sign/Aggregate/Verify
+Farmer --> Node: signed_values
+Node -> Node: respond_unfinished_block
+Node -> Node: Validate Unfinished Block
+Node -> Timelord: new_unfinished_block_timelord
+Node -> Node: new_unfinished_block
+
+@enduml
